@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using System.Configuration;
 
 namespace CapaDato
 {
@@ -13,12 +14,14 @@ namespace CapaDato
         #region Patron Singleton
         private static Conexion conexion = null;
         SqlConnection connection;
-       
+        string dbName = ConfigurationManager.AppSettings["DBName"];
+        string user = ConfigurationManager.AppSettings["UserDB"];
+        string password = ConfigurationManager.AppSettings["Password"];
 
         private Conexion()
         {
             connection = new SqlConnection();
-            connection.ConnectionString = $"Data Source=.; Initial Catalog=ClinicaDB; User ID=sa; Password=123456";
+            connection.ConnectionString = $"Data Source=.; Initial Catalog={dbName}; User ID={user}; Password={password}";
         }
         public static Conexion getInstance()
         {
